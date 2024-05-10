@@ -1,0 +1,46 @@
+{{ define "header_css" }}{{ end }}
+{{ define "body_classes" }}page-default-single{{ end }}
+{{ define "header_classes" }}{{ end }}
+
+{{ define "main" }}
+
+
+<h1 class="title">{{.Title}}</h1>
+<div class="content {{if .Site.Params.enable_anchor_link}}{{ "anchor-link-enabled" }}{{ end }}">
+  <table>
+
+  
+   {{ template "theme_row" (dict  "theparam" .Params.Description "text" "Description:" ) }}
+   {{ template "theme_row" (dict  "theparam" .Params.Demo "text" "Demo Site:" ) }}
+   {{ template "theme_row" (dict  "theparam" .Params.Site "text" "Live Site:" ) }}
+   {{ template "theme_row" (dict  "theparam" .Params.Github "text" "Demo Site Source Code:" ) }}
+ 
+    {{ if .Param "github" }}
+    <tr><th>GH Actions:</th><td>
+          <a href="{{ .Params.Github }}/actions">actions</a><br/>
+         </td> </tr>
+    {{ end }}
+
+   {{ template "theme_row" (dict  "theparam" .Params.Theme "text" "Theme Home Page:" ) }}
+   {{ template "theme_row" (dict  "theparam" .Params.Theme_fork "text" "Theme Fork:" ) }}
+      
+
+  </table>
+ 
+  {{.Content}}
+</div>
+</div>
+{{ end }}
+
+
+{{ define "theme_row" }}
+  {{ $param := .theparam}}
+  {{ $text := .text}}
+  {{ with $param }} 
+  <tr><th>{{ $text }}</th><td>
+    {{ if hasPrefix  . "http"}}
+       <a href="{{ . }}">{{ . }}</a>
+    {{ else }}{{ . }}{{ end }}
+  </td></tr>
+  {{ end }}
+{{ end }}
