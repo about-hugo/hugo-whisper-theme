@@ -1,0 +1,30 @@
+<table>
+
+    {{ template "theme_row" (dict  "theparam" .Params.Description "text" "Description:" ) }}
+    {{ template "theme_row" (dict  "theparam" .Params.Demo "text" "Demo Site:" ) }}
+    {{ template "theme_row" (dict  "theparam" .Params.Site "text" "Live Site:" ) }}
+    {{ template "theme_row" (dict  "theparam" .Params.Github "text" "Source Code:" ) }}
+  
+     {{ if .Param "github" }}
+     <tr><th>GH Actions:</th><td>
+           <a href="{{ .Params.Github }}/actions">actions</a><br/>
+          </td> </tr>
+     {{ end }}
+ 
+    {{ template "theme_row" (dict  "theparam" .Params.Theme "text" "Theme Home Page:" ) }}
+    {{ template "theme_row" (dict  "theparam" .Params.Theme_fork "text" "Theme Fork:" ) }}
+       
+</table>
+ 
+
+{{ define "theme_row" }}
+  {{ $param := .theparam}}
+  {{ $text := .text}}
+  {{ with $param }}
+  <tr><th>{{ $text }}</th><td>
+    {{ if hasPrefix  . "http"}}
+       <a href="{{ . }}">{{ . }}</a>
+    {{ else }}{{ . }}{{ end }}
+  </td></tr>
+  {{ end }}
+{{ end }}
